@@ -6,6 +6,7 @@ import random
 import tweepy
 import shutil
 import datetime
+import os
 
 from credentials import twitterConsumerKey, twitterConsumerSecret, twitterAccessToken, twitterAccessTokenSecret
 
@@ -35,11 +36,11 @@ class rescuePet(object):
         self.localImgPath = 'petImg.jpg'
     
     def __str__(self):
-        nameStr = "Name: {0}\n".format(self.name)
-        genderStr = "Gender: {0}\n".format(self.gender)
-        breedStr = "Breed: {0}\n".format(self.breed)
-        photoStr = "Photo URL: {0}\n".format(self.photoURL)
-        profileStr = "Profile URL: {0}".format(self.profileURL)
+        nameStr = 'Name: {0}\n'.format(self.name)
+        genderStr = 'Gender: {0}\n'.format(self.gender)
+        breedStr = 'Breed: {0}\n'.format(self.breed)
+        photoStr = 'Photo URL: {0}\n'.format(self.photoURL)
+        profileStr = 'Profile URL: {0}'.format(self.profileURL)
         fullStr = nameStr + genderStr + breedStr + photoStr + profileStr
         return fullStr
 
@@ -56,11 +57,36 @@ class rescuePet(object):
         self.getImage()
 
         # Create message
-        tweetMsg = "Hi! My name is {0}. I'm a {1} {2}. Adopt me at: {3}".format(self.name, self.gender, self.breed, self.profileURL)
+        tweetMsg = 'Hi! My name is {0}. I\'m a {1} {2}. Adopt me at: {3}'.format(self.name, self.gender, self.breed, self.profileURL)
 
         # Post tweet
         twitter = twitterAPI()
-        twitter.tweetWPic(self.localImgPath,tweetMsg)
+        #twitter.tweetWPic(self.localImgPath,tweetMsg)
+
+    def tweetedRecently(self):
+        '''Check to determine whether pet has been tweeted recently'''
+        queueLen = 50 # Number of recent posts to track
+        bufferFile = 'recentTweets.dat'
+
+        # Get recent tweets from local file if they exist
+        if os.path.isfile(bufferFile):
+            with open(bufferFile,'r') as f:
+                tweetQueue = f.read().splitlines()
+        else:
+            tweetQueue = []            
+
+        # Write back to buffer
+        if self.profileURL in tweetQueue:
+            return True
+
+        else:
+            tweetQueue.append(self.profileURL)
+            while len(tweetQueue) > queueLen:
+                tweetQueue.pop(0)
+            with open(bufferFile,'w') as f:
+                for item in tweetQueue:
+                    f.write('{0}\n'.format(item))
+            return False
 
 def fetchPetango(animalType, shelterID):
     '''Find webpage on Petango'''
@@ -107,7 +133,7 @@ def parsePetango(page):
     petList = []
 
     # Regex for extracting breed
-    breedPattern = re.compile(r"\|\s*(.*)\s*")
+    breedPattern = re.compile(r'\|\s*(.*)\s*')
 
 
     for animal in page.find_all('div',{'class':'asr-wrap-animal'}):
@@ -164,14 +190,19 @@ def main():
     # Parse page to get list of animals
     petList = parsePetango(petangoPage)
 
-    # Select an animal at random
-    luckyPet = random.choice(petList)
+    # Post first animal that hasn't been tweeted recently
+    for pet in petList:
+        if pet.tweetedRecently():
+            continue
+        else:
+            pet.postTweet()
+            print pet
+            return
 
-    # Post tweet
-    luckyPet.postTweet()
-    
-    # Print animal attributes to stdout
-    print luckyPet
+    # If all pets recently tweeted, select pet at random, post tweet
+    pet = random.choice(petList)
+    pet.postTweet()
+    print pet
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
