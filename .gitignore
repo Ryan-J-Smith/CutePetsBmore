@@ -1,4 +1,6 @@
 .DS_Store
+*.pyc
+*.log
 credentials.py
 recentTweets.dat
 petImg.jpg
