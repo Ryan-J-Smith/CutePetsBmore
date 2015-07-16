@@ -11,7 +11,10 @@ import os
 from credentials import twitterConsumerKey, twitterConsumerSecret, twitterAccessToken, twitterAccessTokenSecret
 
 global shelterDict
-shelterDict = {'barcs': 556}
+shelterDict = {
+    'barcs': 556,
+    'bhs': 444
+    }
 
 scriptDir = os.path.dirname(os.path.realpath(__file__))
 
