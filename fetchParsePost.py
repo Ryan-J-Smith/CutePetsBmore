@@ -7,6 +7,7 @@ import tweepy
 import shutil
 import datetime
 import os
+import time
 
 from credentials import twitterConsumerKey, twitterConsumerSecret, twitterAccessToken, twitterAccessTokenSecret
 
@@ -96,6 +97,8 @@ class rescuePet(object):
 def fetchPetango(animalType, shelterID):
     '''Find webpage on Petango'''
 
+    numRequestAttempts = 5 # Number of times to attempt to query petango page
+
     if animalType.lower() == 'other':
         speciesVar = 0
     elif animalType.lower() == 'dog':
@@ -127,7 +130,13 @@ def fetchPetango(animalType, shelterID):
     }
 
     # Get and parse page
-    res = requests.get(siteURL, params=payload, timeout=5)
+    for attempt in range(numRequestAttempts)
+        try:
+            res = requests.get(siteURL, params=payload, timeout=5)
+            break
+        except:
+            time.sleep(5) # Wait 5 seconds before trying again
+
     page = BeautifulSoup(res.text)
 
     return page
