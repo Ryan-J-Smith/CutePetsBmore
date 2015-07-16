@@ -1,4 +1,4 @@
-# CutePetsBmore
+# CutePetsBmore [@CutePetsBmore](http://www.twitter.com/CutePetsBmore)
 This is a bot that retrieves listings from Baltimore City animal shelters and tweets photos and profile links to eligible pets.
 
 Inspired by previous work by [CutePetsDenver](https://github.com/codeforamerica/CutePetsDenver) and [CutePetsAustin](https://github.com/open-austin/CutePetsAustin).
