@@ -130,7 +130,7 @@ def fetchPetango(animalType, shelterID):
     }
 
     # Get and parse page
-    for attempt in range(numRequestAttempts)
+    for attempt in range(numRequestAttempts):
         try:
             res = requests.get(siteURL, params=payload, timeout=5)
             break
