@@ -33,7 +33,7 @@ class rescuePet(object):
         self.breed = None
         self.photoURL = None
         self.profileURL = None
-        self.localImgPath = 'petImg.jpg'
+        self.localImgPath = './petImg.jpg'
     
     def __str__(self):
         nameStr = 'Name: {0}\n'.format(self.name)
@@ -66,7 +66,7 @@ class rescuePet(object):
     def tweetedRecently(self):
         '''Check to determine whether pet has been tweeted recently'''
         queueLen = 50 # Number of recent posts to track
-        bufferFile = 'recentTweets.dat'
+        bufferFile = './recentTweets.dat'
 
         # Get recent tweets from local file if they exist
         if os.path.isfile(bufferFile):
