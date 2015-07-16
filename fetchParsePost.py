@@ -61,7 +61,7 @@ class rescuePet(object):
 
         # Post tweet
         twitter = twitterAPI()
-        #twitter.tweetWPic(self.localImgPath,tweetMsg)
+        twitter.tweetWPic(self.localImgPath,tweetMsg)
 
     def tweetedRecently(self):
         '''Check to determine whether pet has been tweeted recently'''
