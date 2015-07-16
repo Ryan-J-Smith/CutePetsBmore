@@ -13,6 +13,8 @@ from credentials import twitterConsumerKey, twitterConsumerSecret, twitterAccess
 global shelterDict
 shelterDict = {'barcs': 556}
 
+scriptDir = os.path.dirname(os.path.realpath(__file__))
+
 class twitterAPI(object):
     def __init__(self): 
         auth = tweepy.OAuthHandler(twitterConsumerKey, twitterConsumerSecret)
@@ -33,7 +35,7 @@ class rescuePet(object):
         self.breed = None
         self.photoURL = None
         self.profileURL = None
-        self.localImgPath = './petImg.jpg'
+        self.localImgPath = scriptDir + '/petImg.jpg'
     
     def __str__(self):
         nameStr = 'Name: {0}\n'.format(self.name)
@@ -66,7 +68,7 @@ class rescuePet(object):
     def tweetedRecently(self):
         '''Check to determine whether pet has been tweeted recently'''
         queueLen = 50 # Number of recent posts to track
-        bufferFile = './recentTweets.dat'
+        bufferFile = scriptDir + '/recentTweets.dat'
 
         # Get recent tweets from local file if they exist
         if os.path.isfile(bufferFile):
