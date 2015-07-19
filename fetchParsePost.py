@@ -71,7 +71,7 @@ class rescuePet(object):
 
     def tweetedRecently(self):
         '''Check to determine whether pet has been tweeted recently'''
-        queueLen = 50 # Number of recent posts to track
+        queueLen = 72 # Number of recent posts to track
         bufferFile = scriptDir + '/recentTweets.dat'
 
         # Get recent tweets from local file if they exist
