@@ -186,8 +186,8 @@ def parsePetango(page):
     return petList
 
 def main():
-   global shelterDict
-	# Instead of randomizing the page we scrape, scrape all pages to decrease repeated tweets
+    global shelterDict
+    # Instead of randomizing the page we scrape, scrape all pages to decrease repeated tweets
     #    luckyShelter = random.choice(shelterDict.values())
 	
     curTime = datetime.datetime.now()
@@ -199,21 +199,18 @@ def main():
         luckySpecies = 'dog'
 
 	petList = []
-	for shelter in shelterDict.values():
+	for shelter in random.shuffle(shelterDict.values()):
 		# Get page
 		petangoPage = fetchPetango(luckySpecies, shelter)
 
-		# Parse page to get list of animals
-		petList.append(parsePetango(petangoPage))
-
-    # Post first animal that hasn't been tweeted recently
-    for pet in petList:
-        if pet.tweetedRecently():
-            continue
-        else:
-            pet.postTweet()
-            print pet
-            return
+		for pet in parsePetango(petangoPage):
+			# Parse page to get list of animals
+			if pet.tweetedRecently():
+				petList.append(pet)
+			else:
+				pet.postTweet()
+				print pet
+				return
 
     # If all pets recently tweeted, select pet at random, post tweet
     pet = random.choice(petList)
