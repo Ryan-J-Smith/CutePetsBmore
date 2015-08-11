@@ -8,7 +8,6 @@ import shutil
 import datetime
 import os
 import time
-import petango
 
 from credentials import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET
 from shelters import SHELTER_IDS
