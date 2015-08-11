@@ -2,5 +2,5 @@
 *.pyc
 *.log
 credentials.py
-recentTweets.dat
-petImg.jpg
+recent_tweets.dat
+pet_img.jpg
