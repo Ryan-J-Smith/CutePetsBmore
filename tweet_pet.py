@@ -1,12 +1,12 @@
 from bs4 import BeautifulSoup
-
 import requests
-import re
-import random
 import tweepy
-import shutil
+
 import datetime
 import os
+import re
+import random
+import shutil
 import time
 
 from credentials import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET
