@@ -131,7 +131,7 @@ def fetch_petango(species, shelter_id):
         except:
             time.sleep(5) # Wait 5 seconds before trying again
 
-    page = BeautifulSoup(res.text)
+    page = BeautifulSoup(res.text,"html.parser")
     return page
 
 

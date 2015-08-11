@@ -24,7 +24,7 @@ The python script assumes that available animals are posted on the Petango servi
 ### Schedule regular tweeting with crontab (Linux):
 
 1. From the command line, edit the crontab file: `crontab -e`
-1. Schedule the script to run every hour using a line similar to: `0 * * * * /usr/bin/python (path_to_tweet_pet.py) > (path_to_log.log) 2>&1`
+1. Schedule the script to run every hour using a line similar to: `0 * * * * /usr/bin/python (path_to_tweet_pet.py) >> (path_to_log.log) 2>&1`
 
 ## Notes:
 
