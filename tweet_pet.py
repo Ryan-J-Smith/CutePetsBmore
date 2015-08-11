@@ -183,12 +183,15 @@ def main():
 
     # Alternate between posting cats and dogs
     cur_hour = datetime.datetime.now().hour
-    if (cur_hour % 2 == 1):
-        species = 'cat'
-    elif (cur_hour % 2 == 0):
-        species = 'dog'
+    if (cur_hour % 12 == 0):
+        species = 'other'
     else:
-        species = 'dog'
+        if (cur_hour % 2 == 1):
+            species = 'cat'
+        elif (cur_hour % 2 == 0):
+            species = 'dog'
+        else:
+            species = 'dog'
 
     # Get a page of pets for each shelter in shelters.py
     pet_list = []
